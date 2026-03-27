@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSH MCP Terminal</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Courier New', monospace;
+      background: #1a1a2e;
+      color: #eee;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background: #16213e;
+      padding: 12px 20px;
+      border-bottom: 2px solid #0f3460;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    header h1 { font-size: 16px; color: #00ff88; }
+    
+    .header-right { display: flex; gap: 15px; align-items: center; }
+    
+    .ws-status {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    .ws-status.connected { background: #00ff8833; color: #00ff88; }
+    .ws-status.disconnected { background: #ff444433; color: #ff4444; }
+    
+    .main { display: flex; flex: 1; overflow: hidden; }
+    
+    .sidebar {
+      width: 260px;
+      background: #16213e;
+      border-right: 2px solid #0f3460;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .sidebar-header {
+      padding: 12px 15px;
+      border-bottom: 1px solid #0f3460;
+      font-size: 12px;
+      color: #888;
+    }
+    
+    .shell-input {
+      padding: 10px;
+      border-bottom: 1px solid #0f3460;
+    }
+    
+    .shell-input input {
+      width: 100%;
+      padding: 8px 10px;
+      background: #1a1a2e;
+      border: 1px solid #0f3460;
+      border-radius: 4px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 12px;
+    }
+    
+    .shell-input input:focus {
+      outline: none;
+      border-color: #00ff88;
+    }
+    
+    .shell-input button {
+      width: 100%;
+      margin-top: 8px;
+      padding: 8px;
+      background: #0f3460;
+      border: none;
+      border-radius: 4px;
+      color: #00ff88;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 11px;
+    }
+    
+    .shell-input button:hover { background: #00ff88; color: #000; }
+    
+    .shell-item {
+      padding: 10px 12px;
+      margin: 5px 0;
+      background: #1a1a2e;
+      border: 1px solid #0f3460;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .shell-item:hover { background: #0f3460; border-color: #00ff88; }
+    
+    .shell-item .shell-id { font-size: 11px; color: #00ff88; }
+    .shell-item .shell-status { font-size: 10px; color: #00ff88; }
+    
+    .terminal {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #0a0a0a;
+      position: relative;
+    }
+    
+    .terminal-header {
+      padding: 8px 15px;
+      background: #16213e;
+      border-bottom: 1px solid #0f3460;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .terminal-header .info { color: #00ff88; }
+    .terminal-header .actions { display: flex; gap: 8px; }
+    
+    .terminal-header button {
+      background: #0f3460;
+      border: none;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 10px;
+    }
+    
+    .terminal-header button:hover { background: #00ff88; color: #000; }
+    
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+      background: #00ff88;
+    }
+    
+    .status-dot.disconnected {
+      background: #ff4444;
+      animation: pulse 1s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .disconnected-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    
+    .disconnected-content {
+      text-align: center;
+      padding: 30px;
+    }
+    
+    .disconnected-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+    
+    .disconnected-text {
+      font-size: 18px;
+      color: #ff4444;
+      margin-bottom: 8px;
+    }
+    
+    .disconnected-subtext {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    
+    .reconnect-btn {
+      background: #0f3460;
+      border: 1px solid #00ff88;
+      color: #00ff88;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    
+    .reconnect-btn:hover {
+      background: #00ff88;
+      color: #000;
+    }
+    
+    #terminal-output {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      font-size: 13px;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      word-break: break-all;
+      outline: none;
+      font-family: 'Courier New', monospace;
+      caret-color: #00ff88;
+    }
+    
+    #terminal-output:empty::before {
+      content: 'Click to connect to a shell...';
+      color: #666;
+    }
+    
+    /* Cursor blink animation */
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    
+    .empty-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+    }
+    
+    .empty-state svg {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 15px;
+      opacity: 0.4;
+    }
+    
+    .empty-state p { font-size: 13px; }
+    
+    .tips {
+      margin-top: 20px;
+      padding: 15px;
+      background: #16213e;
+      border-radius: 6px;
+      max-width: 400px;
+      text-align: left;
+    }
+    
+    .tips h3 { color: #00ff88; font-size: 12px; margin-bottom: 10px; }
+    .tips code { background: #0a0a0a; padding: 2px 6px; border-radius: 3px; font-size: 11px; }
+    .tips ol { font-size: 11px; padding-left: 20px; line-height: 1.8; color: #888; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🖥️ SSH MCP Terminal</h1>
+    <div class="header-right">
+      <span id="ws-status" class="ws-status disconnected">WS: --</span>
+    </div>
+  </header>
+  
+  <div class="main">
+    <div class="sidebar">
+      <div class="sidebar-header">Active Shells</div>
+      <div id="active-shells-list" style="padding:10px;">
+        <div style="color:#666;font-size:11px;">No active shells</div>
+      </div>
+      <div class="sidebar-header">Connect to Shell</div>
+      <div class="shell-input">
+        <input type="text" id="shell-id-input" placeholder="Enter Shell ID (e.g., sh-xxx)">
+        <button onclick="connectToShell()">Connect</button>
+      </div>
+      <div class="sidebar-header">Quick Connect</div>
+      <div style="padding: 10px; font-size: 11px; color: #666;">
+        Enter the Shell ID from<br>
+        <code>ssh_interactive_shell_open</code><br>
+        response to connect.
+      </div>
+    </div>
+    
+    <div class="terminal">
+      <div class="empty-state" id="empty-state">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10zM7 17l4-4-4-4 1.4-1.4L11.2 13l-2.8 2.6L7 17zm5 0h6v-2h-6v2z"/>
+        </svg>
+        <p>Enter a Shell ID to connect</p>
+        
+        <div class="tips">
+          <h3>How to use:</h3>
+          <ol>
+            <li>Use <code>ssh_interactive_shell_open</code> tool in MCP</li>
+            <li>Copy the Shell ID from response</li>
+            <li>Paste here and click Connect</li>
+            <li>Type commands and press Enter</li>
+          </ol>
+        </div>
+      </div>
+      
+      <div id="terminal-content" style="display: none; flex-direction: column; flex: 1;">
+        <div class="terminal-header">
+          <span class="info" id="terminal-info">
+            <span class="status-dot" id="status-dot"></span>
+            Shell: <span id="shell-id-display">-</span>
+          </span>
+          <div class="actions">
+            <button onclick="clearTerminal()">Clear</button>
+            <button onclick="disconnectShell()">Disconnect</button>
+          </div>
+        </div>
+        <div id="terminal-output" class="terminal-output" contenteditable="true" spellcheck="false"></div>
+      </div>
+      
+      <!-- Disconnected overlay -->
+      <div id="disconnected-overlay" class="disconnected-overlay" style="display: none;">
+        <div class="disconnected-content">
+          <div class="disconnected-icon">⚠️</div>
+          <div class="disconnected-text">Connection Lost</div>
+          <div class="disconnected-subtext">Attempting to reconnect...</div>
+          <button class="reconnect-btn" onclick="reconnectNow()">Reconnect Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const WS_URL = 'ws://localhost:8765';
+    
+    let ws = null;
+    let currentShellId = null;
+    let reconnectAttempts = 0;
+    let activeShells = [];
+    let currentInput = '';
+    let promptText = '$ ';
+    let connectedUser = '';
+    let isProcessing = false;
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Page loaded, connecting to WebSocket...');
+      connectWebSocket();
+      
+      const terminalOutput = document.getElementById('terminal-output');
+      
+      // Use keydown for better control
+      terminalOutput.addEventListener('keydown', (e) => {
+        if (!currentShellId || !ws || ws.readyState !== WebSocket.OPEN || isProcessing) return;
+        
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const cmd = currentInput;
+          if (cmd.trim()) {
+            sendInput(cmd);
+          } else {
+            // Just show prompt on empty enter
+            const prompt = getPrompt();
+            terminalOutput.innerText += '\n' + prompt;
+          }
+          currentInput = '';
+          e.preventDefault();
+        } else if (e.key === 'Backspace') {
+          if (currentInput.length > 0) {
+            currentInput = currentInput.slice(0, -1);
+            updateInputDisplay();
+          }
+          e.preventDefault();
+        } else if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
+          currentInput += e.key;
+          updateInputDisplay();
+          e.preventDefault();
+        } else if (e.key === 'c' && e.ctrlKey) {
+          currentInput = '';
+          updateInputDisplay();
+          appendOutput('^C\n');
+          e.preventDefault();
+        } else if (e.key === 'd' && e.ctrlKey) {
+          if (currentInput === '') {
+            // Ctrl+D exits shell
+            disconnectShell();
+          }
+          e.preventDefault();
+        } else if (e.key === 'l' && e.ctrlKey) {
+          // Ctrl+L clears screen
+          terminalOutput.innerText = getPrompt();
+          currentInput = '';
+          e.preventDefault();
+        }
+      });
+      
+      // Keep focus on terminal when clicking anywhere in it
+      terminalOutput.addEventListener('click', () => {
+        if (currentShellId) {
+          terminalOutput.focus();
+        }
+      });
+      
+      // Also focus when terminal content is shown
+      document.getElementById('shell-id-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') connectToShell();
+      });
+      
+      // Poll for shell list every 3 seconds
+      setInterval(() => {
+        if (ws && ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify({ list_shells: true }));
+          ws.send(JSON.stringify({ ping: true }));
+        }
+      }, 3000);
+    });
+    
+    function updateInputDisplay() {
+      const terminalOutput = document.getElementById('terminal-output');
+      const prompt = getPrompt();
+      
+      // Get current text
+      let text = terminalOutput.innerText;
+      
+      // Find and remove current input line (line that starts with prompt)
+      const lines = text.split('\n');
+      const lastLine = lines[lines.length - 1];
+      
+      if (lastLine && (lastLine.startsWith(prompt) || lastLine === prompt.slice(0, -1))) {
+        // Remove last line (current input)
+        lines.pop();
+        text = lines.join('\n');
+      }
+      
+      // Add prompt and current input
+      if (text && !text.endsWith('\n')) {
+        text += '\n';
+      }
+      text += prompt + currentInput;
+      
+      terminalOutput.innerText = text;
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+    
+    function renderInputLine() {
+      updateInputDisplay();
+    }
+    
+    function getPrompt() {
+      return connectedUser || promptText;
+    }
+    
+    function connectWebSocket() {
+      if (ws && ws.readyState === WebSocket.OPEN) return;
+      
+      ws = new WebSocket(WS_URL);
+      
+      ws.onopen = () => {
+        updateStatus(true);
+        reconnectAttempts = 0;
+        // Hide disconnected overlay if we were connected to a shell
+        document.getElementById('disconnected-overlay').style.display = 'none';
+        // Resubscribe to shell if we were connected
+        if (currentShellId) {
+          ws.send(JSON.stringify({ subscribe: currentShellId }));
+        }
+      };
+      
+      ws.onclose = () => {
+        updateStatus(false);
+        // Show disconnected overlay if we were connected to a shell
+        if (currentShellId) {
+          document.getElementById('disconnected-overlay').style.display = 'flex';
+        }
+        // Keep trying to reconnect indefinitely
+        console.log('WS closed, reconnecting...');
+        setTimeout(connectWebSocket, 2000);
+      };
+      
+      ws.onmessage = (event) => {
+        try {
+          const msg = JSON.parse(event.data);
+          handleMessage(msg);
+        } catch (e) {
+          console.log('Raw:', event.data);
+        }
+      };
+      
+      ws.onclose = () => {
+        updateStatus(false);
+        // Keep trying to reconnect indefinitely
+        console.log('WS closed, reconnecting...');
+        setTimeout(connectWebSocket, 2000);
+      };
+      
+      ws.onerror = (err) => {
+        console.error('WS Error:', err);
+      };
+    }
+    
+    function handleMessage(msg) {
+      console.log('Received message:', msg);
+      if (msg.type === 'output' && msg.shellId === currentShellId) {
+        appendOutput(msg.data);
+      } else if (msg.type === 'event') {
+        if (msg.event === 'closed') {
+          appendOutput('\n[Shell closed by remote]\n');
+          currentShellId = null;
+          connectedUser = '';
+        }
+      } else if (msg.type === 'subscribed') {
+        const terminalOutput = document.getElementById('terminal-output');
+        terminalOutput.innerText = `[Connected to shell: ${msg.shellId}]\n`;
+      } else if (msg.type === 'shell_list') {
+        console.log('Shell list received - raw:', JSON.stringify(msg));
+        console.log('Shell list received - shells:', msg.shells, 'length:', msg.shells ? msg.shells.length : 0);
+        activeShells = msg.shells || [];
+        renderShellList();
+      }
+    }
+    
+    function renderShellList() {
+      const listEl = document.getElementById('active-shells-list');
+      if (!listEl) return;
+      
+      // Check if WebSocket is connected
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        listEl.innerHTML = '<div style="padding:10px;color:#ff4444;font-size:11px;">⚠️ WebSocket disconnected</div>';
+        return;
+      }
+      
+      if (activeShells.length === 0) {
+        listEl.innerHTML = '<div style="padding:10px;color:#666;font-size:11px;">No active shells</div>';
+        return;
+      }
+      
+      listEl.innerHTML = activeShells.map(id => 
+        `<div class="shell-item" onclick="selectShell('${id}')">
+          <div class="shell-id">${id.substring(0, 12)}...</div>
+          <div class="shell-status">Active</div>
+        </div>`
+      ).join('');
+    }
+    
+    function connectToShell() {
+      const shellId = document.getElementById('shell-id-input').value.trim();
+      if (!shellId) return;
+      
+      // Check if WebSocket is connected
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        alert('WebSocket not connected. Please wait for connection or refresh the page.');
+        return;
+      }
+      
+      currentShellId = shellId;
+      currentInput = '';
+      connectedUser = '';
+      
+      // Show terminal
+      document.getElementById('empty-state').style.display = 'none';
+      document.getElementById('terminal-content').style.display = 'flex';
+      document.getElementById('shell-id-display').textContent = shellId.substring(0, 8) + '...';
+      
+      const terminalOutput = document.getElementById('terminal-output');
+      terminalOutput.innerText = '';
+      terminalOutput.focus();
+      
+      // Subscribe via WebSocket
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ subscribe: shellId }));
+      }
+    }
+    
+    // Global function for clicking on shell from list
+    window.selectShell = function(shellId) {
+      // Check if WebSocket is connected
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        alert('WebSocket not connected. Please wait for connection.');
+        return;
+      }
+      document.getElementById('shell-id-input').value = shellId;
+      connectToShell();
+    };
+    
+    // Simple and aggressive ANSI stripper
+    function stripAnsi(str) {
+      return str
+        .replace(/[\x00-\x1F\x7F]/g, '') // Control chars
+        .replace(/\x1B/g, '') // ESC
+        .replace(/\[[^\x07]*\x07/g, '') // ESC ] ... BEL
+        .replace(/\[[^a-zA-Z]*[a-zA-Z]/g, '') // ESC [ ... letter
+        .replace(/\]\d+;/g, '') // OSC number
+        .replace(/\[\?[\da-zA-Z]+/g, '') // [?2004l etc
+        .replace(/\[[\d;]+m/g, '') // color codes
+        .replace(/\[$/gm, '') // trailing [
+        .replace(/[\[\]]/g, '') // remaining brackets
+        .replace(/\?2004[h|l]/g, '') // bracketed paste mode
+        .trim();
+    }
+    
+    function appendOutput(text) {
+      text = stripAnsi(text);
+      
+      const terminalOutput = document.getElementById('terminal-output');
+      const prompt = getPrompt();
+      
+      // Get current text
+      let currentText = terminalOutput.innerText;
+      
+      // Remove current input line if it exists
+      const lines = currentText.split('\n');
+      if (lines.length > 0) {
+        const lastLine = lines[lines.length - 1];
+        // Check if last line is the input line (starts with prompt)
+        if (lastLine === prompt + currentInput || lastLine.startsWith(prompt)) {
+          lines.pop();
+          currentText = lines.join('\n');
+        }
+      }
+      
+      // Append new output
+      if (currentText && !currentText.endsWith('\n') && !text.startsWith('\n')) {
+        currentText += '\n';
+      }
+      currentText += text;
+      
+      // Try to detect prompt from output - look for user@host:path$ pattern
+      const promptMatch = text.match(/([a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+:[^\$]+)\$/);
+      if (promptMatch) {
+        connectedUser = promptMatch[1].trim() + ' ';
+      }
+      
+      terminalOutput.innerText = currentText;
+      
+      // Add current input line back if shell is active
+      if (currentShellId) {
+        terminalOutput.innerText += '\n' + getPrompt() + currentInput;
+      }
+      
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+    
+    function sendInput(text) {
+      if (!currentShellId || !ws || ws.readyState !== WebSocket.OPEN) return;
+      
+      isProcessing = true;
+      
+      const terminalOutput = document.getElementById('terminal-output');
+      const prompt = getPrompt();
+      
+      // Get current text and remove input line
+      let currentText = terminalOutput.innerText;
+      const lines = currentText.split('\n');
+      
+      // Remove last line if it starts with prompt
+      if (lines.length > 0 && lines[lines.length - 1].startsWith(prompt.replace(' ', ''))) {
+        lines.pop();
+        currentText = lines.join('\n');
+      }
+      
+      // Show command with prompt
+      terminalOutput.innerText = (currentText ? currentText + '\n' : '') + prompt + text + '\n';
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      
+      // Send via WebSocket
+      ws.send(JSON.stringify({ 
+        send: currentShellId, 
+        input: text + '\n' 
+      }));
+      
+      // Allow input again after a short delay
+      setTimeout(() => {
+        isProcessing = false;
+        updateInputDisplay();
+      }, 100);
+    }
+    
+    function clearTerminal() {
+      const terminalOutput = document.getElementById('terminal-output');
+      terminalOutput.innerText = '';
+      if (currentShellId) {
+        terminalOutput.innerText = getPrompt();
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      }
+    }
+    
+    function disconnectShell() {
+      if (ws && ws.readyState === WebSocket.OPEN && currentShellId) {
+        ws.send(JSON.stringify({ unsubscribe: currentShellId }));
+      }
+      currentShellId = null;
+      connectedUser = '';
+      currentInput = '';
+      document.getElementById('empty-state').style.display = 'flex';
+      document.getElementById('terminal-content').style.display = 'none';
+      document.getElementById('shell-id-input').value = '';
+    }
+    
+    function updateStatus(connected) {
+      const el = document.getElementById('ws-status');
+      el.className = connected ? 'ws-status connected' : 'ws-status disconnected';
+      el.textContent = connected ? 'WS: Connected' : 'WS: Disconnected';
+      
+      // Update status dot in terminal header
+      const statusDot = document.getElementById('status-dot');
+      if (statusDot) {
+        statusDot.className = connected ? 'status-dot' : 'status-dot disconnected';
+      }
+      
+      // Show/hide disconnected overlay when connected to a shell
+      const overlay = document.getElementById('disconnected-overlay');
+      if (currentShellId && overlay) {
+        overlay.style.display = connected ? 'none' : 'flex';
+      }
+      
+      // Re-render shell list
+      renderShellList();
+    }
+    
+    function reconnectNow() {
+      if (ws) {
+        ws.close();
+      }
+      ws = null;
+      connectWebSocket();
+    }
+  </script>
+</body>
+</html>

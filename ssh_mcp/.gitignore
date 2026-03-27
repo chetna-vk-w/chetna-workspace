@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Database files (sensitive!)
+*.db
+*.sqlite
+ssh_connections.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables (sensitive!)
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test output
+coverage/
+.nyc_output/
+
+# SSH keys (NEVER commit!)
+*.pem
+*.key
+id_rsa
+id_ed25519
+
+# MCP socket
+*.sock
+
+# Test data
+sftp-data/
+test_*.js
+list_tools.js
+safe_refactor.js

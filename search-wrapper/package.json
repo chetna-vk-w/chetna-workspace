@@ -1,0 +1,22 @@
+{
+  "name": "search-wrapper",
+  "version": "1.0.0",
+  "description": "Web search wrapper using DuckDuckGo - no API keys required",
+  "main": "search.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "search",
+    "duckduckgo",
+    "cli",
+    "web-search",
+    "no-api-key"
+  ],
+  "author": "nandini-vk-w",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "duck-duck-scrape": "^2.2.7"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "ssh": {
+    "host": "156.67.31.86",
+    "port": 60000,
+    "username": "root",
+    "password": "5i0zcEVgLbF4ibGnQIWK0Bj5t9VN4fPK9mhjqNikN6a"
+  },
+  "mcpServers": {}
+}

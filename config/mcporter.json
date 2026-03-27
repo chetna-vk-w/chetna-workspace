@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "memory": {
+      "command": "node",
+      "args": [
+        "/root/.openclaw/workspace/memory-mcp-sql/build/index.js"
+      ],
+      "env": {}
+    },
+    "ssh-vps": {
+      "command": "node /root/.openclaw/workspace/ssh_mcp/dist/mcp-server.js --config /root/.openclaw/workspace/ssh_mcp_config.json"
+    }
+  },
+  "imports": []
+}

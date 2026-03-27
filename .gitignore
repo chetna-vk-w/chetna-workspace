@@ -1,0 +1,7 @@
+
+# Local config & data
+config/agent_audit.log
+config/memory_mcp.db
+
+# Ollama proxy
+ollama-proxy/

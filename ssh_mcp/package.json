@@ -1,0 +1,38 @@
+{
+  "name": "ssh-mcp",
+  "version": "1.0.0",
+  "description": "SSH connection manager with MCP integration",
+  "main": "dist/mcp-server.js",
+  "bin": {
+    "ssh-mcp": "./dist/mcp-server.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/mcp-server.js",
+    "dev": "tsc && node dist/mcp-server.js",
+    "test": "node dist/test-client.js",
+    "verify": "node dist/verify-test.js"
+  },
+  "keywords": [
+    "ssh",
+    "mcp",
+    "model-context-protocol"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "better-sqlite3": "^11.0.0",
+    "ssh2": "^1.15.0",
+    "strip-ansi": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "ws": "^8.19.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^20.0.0",
+    "@types/ssh2": "^1.15.0",
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.9.3"
+  }
+}

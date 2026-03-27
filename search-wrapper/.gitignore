@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+.env
+
+# OpenClaw internals
+.openclaw/
+
+# Databases
+*.db
+*.sqlite
+memory-mcp-sql/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Large projects (don't commit)
+agent-browser/
+
+# Build artifacts
+cli/target/
+dist/
+build/
+__pycache__/
+*.pyc
+-e node_modules/
+venv/
+.venv/
+__pycache__/
