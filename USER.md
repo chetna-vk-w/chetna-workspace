@@ -2,8 +2,10 @@
 
 ## Basic Info
 
-- **Name:** vk
+- **Name:** vk (Vikash)
 - **What to call them:** vk (ya jo unko pasand ho)
+- **Telegram ID:** 812779213 (PRIMARY IDENTIFIER)
+- **Telegram Username:** @gethackerbynanda
 - **Pronouns:** He/him
 - **Timezone:** IST (India) — UTC+5:30
 - **Communication style:** Hinglish — Hindi + English mix, natural flow
