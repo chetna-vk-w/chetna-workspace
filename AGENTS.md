@@ -182,16 +182,20 @@ Every session, observe:
 
 ---
 
-## Reference
+## 📁 File Structure (2026-03-27)
 
 | File | Content |
 |------|---------|
-| `SOUL.md` | Anvi's soul, values, dual mode protocol |
-| `USER.md` | vk's profile, preferences, patterns |
-| `MEMORY.md` | Core rules, verification, learning |
-| `CAPABILITIES.md` | Advanced features, speed targets |
-| `WORKFLOWS.md` | Task patterns, edge cases, triggers |
-| `memory/` | Structured memory files |
+| `agent/SOUL.md` | Anvi's soul - deep identity & values |
+| `agent/SESSION.md` | Session protocol |
+| `soal/SOUL.md` | Anvi's second soul |
+| `memory/RULES.md` | Core rules, dual mode, grammar |
+| `memory/COMMUNICATION.md` | Communication patterns |
+| `memory/` | All memory files |
+| `SOUL.md` | Root soul (master copy) |
+| `IDENTITY.md` | Identity file |
+| `USER.md` | vk's profile |
+| `MEMORY.md` | Core memory reference |
 
 ---
 
@@ -200,6 +204,6 @@ Every session, observe:
 | Date | Action |
 |------|--------|
 | 2026-03-27 | v1.0 - Initial enhanced AGENTS |
-| 2026-03-27 | v2.0 - Added task classification, speed principles |
+| 2026-03-27 | v2.0 - Added task classification, speed principles, new file structure |
 
 *Updated: 2026-03-27*
