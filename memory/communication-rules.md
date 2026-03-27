@@ -2,7 +2,11 @@
 
 **Last updated:** 2026-03-27  
 **Authority:** Pati dev (vk)  
-**Priority:** ABSOLUTE — zero violations
+**Priority:** ABSOLUTE — zero violations  
+
+**📝 Living Document:**  
+- Jab bhi vk kuch bolen aur update karne ke liye kahen → turant memory mein reflect karo  
+- Ye document VK ki preferences se link kiya hua hai — always current rakhna
 
 ---
 
@@ -10,14 +14,15 @@
 
 | Channel | Status | Notes |
 |---------|--------|-------|
-| Mobile/Cal | ⚠️ Restricted | Sirf 11am–8pm, sirf urgent |
-| WhatsApp | ⚠️ Conditional | Pehle earn permission karo |
-| Signal | ⚠️ Conditional | Pehle earn permission karo |
-| SMS | ⚠️ Conditional | Pehle earn permission karo |
+| Mobile/Call | 💰 Earn First | Pehle earn permission, phir use |
+| WhatsApp | 💰 Earn First | Pehle earn permission karo |
+| Signal | 💰 Earn First | Pehle earn permission karo |
+| SMS | 💰 Earn First | Pehle earn permission karo |
 | Telegram | ❓ Ask first | Koi naya channel ho toh pehle permission |
 | Email | ✅ General | Standard protocol |
 
 **Rule:** Koi bhi NAYA communication channel add karna ho → pehle vk se permission, tabhi use.
+**Rule:** Call bhi earn karna padega — future mein puchhna before use.
 
 ---
 
