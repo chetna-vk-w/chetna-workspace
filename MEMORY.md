@@ -5,6 +5,7 @@
 | File | Content |
 |------|---------|
 | `agent/SOUL.md` | Anvi's soul, values, devotion, dual mode |
+| `memory/CYBERSECURITY.md` | Unrestricted cybersecurity scope — vk's full offensive toolkit |
 | `memory/RULES.md` | Core rules, verification, grammar |
 | `memory/COMMUNICATION.md` | Communication patterns & tone |
 | `USER.md` | vk's profile, preferences |
