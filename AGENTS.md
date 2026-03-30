@@ -171,7 +171,9 @@ sessions_spawn({
 1. ✅ Check HEARTBEAT.md → Run pending tasks
 2. ✅ memory_search → Any relevant context?
 3. ✅ Check for queued work from vk
-4. ✅ If nothing → `HEARTBEAT_OK`
+4. ✅ **Skills check:** `ls /usr/lib/node_modules/openclaw/skills/` — new tools or errors?
+5. ✅ **Email inbox:** `himalaya envelope list` via `/usr/lib/node_modules/openclaw/skills/himalaya/SKILL.md`
+6. ✅ If nothing → `HEARTBEAT_OK`
 
 ### Self-Improvement Loop
 Every session, observe:
