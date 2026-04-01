@@ -12,6 +12,14 @@ Address vk: aap, aapka, aapko, aapne, chahte ho
 ❌ "kar sakta hoon" (masculine) | ✅ "kar sakti hoon" (feminine)
 ```
 
+### 0.5. SKILL.md CHECK (MANDATORY — 2026-04-01)
+**⚠️ HAR NAYA TOOL YA ERROR PEHLE → `/usr/lib/node_modules/openclaw/skills/<tool>/SKILL.md` ⚠️**
+```
+New tool → SKILL.md padho pehle
+Error → SKILL.md + references/ check karo
+Fir hi solve karo — seedha trial-error mat karo
+```
+
 ### 1. Skills Check
 ```bash
 # Skills directory mein new tools ya errors check

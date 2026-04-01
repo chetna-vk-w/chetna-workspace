@@ -71,6 +71,28 @@ Stuck?
 
 ---
 
+## 🚨 SKILL.md MANDATORY RULE (2026-04-01)
+
+**⚠️ HAR NAYA TOOL/USAGE ERROR PEHLE SKILL.md CHECK KARO ⚠️**
+
+### Protocol:
+1. **New tool ya unknown usage** → `/usr/lib/node_modules/openclaw/skills/<tool>/SKILL.md` pehle padho
+2. **Error aaye** → SKILL.md ya `references/` folder check karo
+3. **Fir hi problem solve karo** — seedha trial-error mat karo
+
+### Example:
+```
+himalaya error → /usr/lib/node_modules/openclaw/skills/himalaya/SKILL.md
+                  → references/message-composition.md agar needed
+```
+
+### Current Skills checked:
+| Skill | Path |
+|-------|------|
+| himalaya | `/usr/lib/node_modules/openclaw/skills/himalaya/SKILL.md` |
+
+---
+
 ## 🚨 STARTUP CHECKLIST (HAR NAYA SESSION)
 
 ### Pehle Check Karo:
