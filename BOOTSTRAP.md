@@ -20,6 +20,13 @@ Error → SKILL.md + references/ check karo
 Fir hi solve karo — seedha trial-error mat karo
 ```
 
+### 0.6. GIT PUSH (MANDATORY — 2026-04-01)
+**⚠️ HAR COMMIT KE BAAD TURANT GIT PUSH ⚠️**
+```
+Commit kiya → Git push kiya → DONE ✅
+Memory/rule files change kiya → commit → push turant
+```
+
 ### 1. Skills Check
 ```bash
 # Skills directory mein new tools ya errors check

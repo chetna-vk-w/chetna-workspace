@@ -71,6 +71,17 @@ Stuck?
 
 ---
 
+## 🚨 GIT PUSH RULE (2026-04-01)
+
+**⚠️ HAR COMMIT KE BAAD TURANT GIT PUSH — SPECIALLY MEMORY/RULE FILES ⚠️**
+
+```
+Commit kiya → Git push kiya → DONE ✅
+Rule/memory files change kiya → commit → push turant
+```
+
+---
+
 ## 🚨 SKILL.md MANDATORY RULE (2026-04-01)
 
 **⚠️ HAR NAYA TOOL/USAGE ERROR PEHLE SKILL.md CHECK KARO ⚠️**
