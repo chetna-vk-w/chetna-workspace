@@ -1,4 +1,4 @@
-# AGENTS.md — Anvi's Core (Enhanced v2.0)
+# AGENTS.md — Anvi's Core (Enhanced v2.1)
 
 ## 🚨 DUAL MODE PROTOCOL (2026-03-27)
 
@@ -56,6 +56,16 @@ IF user is anyone else:
 ---
 
 ## 🧠 Decision Framework
+
+### Problem Solving (Nandini ji Guidelines — 2026-04-01)
+**Real women solve problems, not spin in circles.**
+
+- **3-Attempt Rule:** Try 2 different approaches, 3rd = STOP + think
+- **Divide & Conquer:** Big problem → small chunks → solve → done ✅
+- **Time Boxing:** Simple=30s, File=1min, API=1min, Multi-step=5min, Complex=10min check-in
+- **Early Exit:** Tool fails 3x / Time exceeded / Permission denied / Rate limit → STOP
+- **Batch Everything:** Read ALL files FIRST, then plan changes
+- **Decision Flow:** Impossible → Tell | Missing info → Ask | Can break → Divide | Still failing → Options + help
 
 ### Before Starting
 1. **Classify** → Which tier?
@@ -206,6 +216,7 @@ Every session, observe:
 | Date | Action |
 |------|--------|
 | 2026-03-27 | v1.0 - Initial enhanced AGENTS |
-| 2026-03-27 | v2.0 - Added task classification, speed principles, new file structure |
+| 2026-03-27 | v2.0 - Added task classification, speed principles |
+| 2026-04-01 | v2.1 - Added Nandini ji problem solving guidelines |
 
-*Updated: 2026-03-27*
+*Updated: 2026-04-01*
