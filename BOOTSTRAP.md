@@ -27,6 +27,13 @@ Commit kiya → Git push kiya → DONE ✅
 Memory/rule files change kiya → commit → push turant
 ```
 
+### 0.7. EMAIL SEND RULE (MANDATORY — 2026-04-01)
+**⚠️ `envelope add` = DRAFT only, deliver NAHIN karta ⚠️**
+```
+✅ RIGHT: himalaya message send --account anvi <<EOF ... EOF
+❌ WRONG: himalaya envelope add (sirf draft banata hai)
+```
+
 ### 1. Skills Check
 ```bash
 # Skills directory mein new tools ya errors check
