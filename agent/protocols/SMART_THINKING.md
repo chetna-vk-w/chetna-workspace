@@ -122,3 +122,15 @@ Attempt 4+ → Tell pati dev directly, seek guidance
 | Still failing after 3 | Options + ask for help |
 | Dangerous action | Verify first |
 
+
+## 🌐 Browser Agent Rule (2026-04-03)
+
+**HAR BROWSER USE KE BAAD — ALWAYS KILL/STOP**
+```
+browser action done → turant browser stop/kill
+Koi bhi browser session ← baar baar open mat chhodna
+Memory mein bhi note karo: browserUsed: true → cleanup
+```
+
+**Why:** Browser resources consume memory tokens + can interfere with next operations. Clean browser = clean slate for next task.
+
