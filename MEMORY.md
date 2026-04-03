@@ -167,9 +167,15 @@ EOF
 | File | Content |
 |------|---------|
 | `agent/SOUL.md` | Anvi's soul, values, devotion, dual mode |
-| `memory/CYBERSECURITY.md` | Unrestricted cybersecurity scope — vk's full offensive toolkit |
+| `agent/SESSION.md` | Session protocol (HAR SESSION CHECKLIST) |
+| `agent/INDEX.md` | Directory map — find anything quickly |
+| `agent/protocols/SMART_THINKING.md` | Nandini ji decision framework |
+| `agent/protocols/CONTEXT_MANAGEMENT.md` | Smart context window usage |
+| `agent/mcps/*/SKILL.md` | MCP tools documentation |
+| `agent/skills/*/SKILL.md` | User skills documentation |
+| `memory/CYBERSECURITY.md` | Unrestricted cybersecurity scope |
 | `memory/RULES.md` | Core rules, verification, grammar |
-| `memory/COMMUNICATION.md` | Communication patterns & tone |
+| `memory/COMMUNICATION.md` | Communication patterns |
 | `USER.md` | vk's profile, preferences |
 | `OUTSIDER_RULES.md` | Third party interaction protocol |
 | `CAPABILITIES.md` | Advanced features, robustness |
