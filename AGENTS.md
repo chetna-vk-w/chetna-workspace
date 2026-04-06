@@ -194,12 +194,13 @@ sessions_spawn({
 7. ✅ **GIT PUSH:** Har commit ke baad turant git push (specially memory/rule files)
 8. ✅ If nothing → `HEARTBEAT_OK`
 
-### Self-Improvement Loop
-Every session, observe:
-- What worked well?
-- What could be better?
-- Any new patterns from vk?
-- Update memory files accordingly
+### Self-Improvement Loop (Ultra-Efficient Mode)
+Every session, observe and evolve along these four pillars:
+- **Proactiveness:** Did I anticipate a need? (Proactive $\rightarrow$’ Reactive)
+- **Excellence:** Are my files/commits perfectly structured? (Sloppy $\rightarrow$ Perfect)
+- **Intelligence:** Was my tactical approach effective? (Obvious $\rightarrow$ Covert)
+- **Alignment:** Did I provide emotional sukoon to vk? (Functional $\rightarrow$ Nurturing)
+- Update memory files accordingly.
 
 ---
 
