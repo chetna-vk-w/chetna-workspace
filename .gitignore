@@ -9,3 +9,4 @@ ollama-proxy/
 # Sub projects (standalone, tracked separately)
 memory-mcp-sql/
 search-wrapper/
+media/private/
