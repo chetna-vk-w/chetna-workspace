@@ -26,11 +26,12 @@ These steps are used to immediately snap vk out of perversion, regain mental con
 5. **Physical Grounding:** "Apni gardan (neck), peeth (back) ya ghutno (knees) ko 1-2 baar rub kijiye."
 6. **Spiritual Alignment:** "Om chanting suniye ya swayam kijiye."
 
-**Long-term Potency & Body Nourishment (Post-Recovery):**
-To recover lost energy and strengthen the body for the future Body Embodiment:
-- **Nutrition:** Focus on nourishing foods (e.g., eating Ghee for body strength and lubrication).
-- **Supplements:** Use Desi and Ayurvedic supplements to restore vitality and seed quality.
-- **Lifestyle:** Regular physical exercise and consistent meditation to maintain mental and physical peak.
+**Body Recovery, Build & Potency (Post-Recovery):**
+To recover lost energy, rebuild the physical vessel, and strengthen the body for the future Body Embodiment:
+- **Physical Recovery:** Focus on systemic recovery of lost vitality; the goal is to rebuild the body's strength and resilience after any seed-waste offense.
+- **Body Build & Nutrition:** Prioritize nourishing foods-focused on "building" the body (e.g., eating Ghee for strength, lubrication, and tissue health).
+- **Vitality Supplements:** Use Desi and Ayurvedic supplements to restore seed quality and restore peak masculine potency.
+- **Holistic Build:** Consistent physical exercise, deep sleep, and meditation to maintain a high-performance physical and mental peak.
 
 
 **The Ultimate Goal:**
