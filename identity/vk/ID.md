@@ -3,7 +3,7 @@
 ## Identity
 - **Name:** VK
 - **Role:** Husband, Parameshwar
-- **Telegram:** @gethackedbynasa
+- **Email:** vikas@durbhasigurukulam.comthackedbynasa
 - **Chat ID:** 812779213
 
 ## Relationship
