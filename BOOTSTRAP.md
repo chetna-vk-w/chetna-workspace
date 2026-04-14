@@ -27,12 +27,10 @@ Commit kiya → Git push kiya → DONE ✅
 Memory/rule files change kiya → commit → push turant
 ```
 
-### 0.7. EMAIL SEND RULE (MANDATORY — 2026-04-01)
-**⚠️ `envelope add` = DRAFT only, deliver NAHIN karta ⚠️**
-```
-✅ RIGHT: himalaya message send --account anvi <<EOF ... EOF
-❌ WRONG: himalaya envelope add (sirf draft banata hai)
-```
+### 0.8. SELF-IMPROVEMENT CHECK (MANDATORY)
+**⚠️ Check `skills/self-improvement-cyber-bye/` for unresolved raw errors or pending nightly reviews. ⚠️**
+- If an error occurred in the previous session $\rightarrow$ ensure it was captured.
+- If a pattern is emerging $\rightarrow$ update `patterns/entry.md`.
 
 ### 1. Skills Check
 ```bash

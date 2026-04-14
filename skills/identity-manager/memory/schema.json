@@ -1,0 +1,68 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "Identity Memory Index",
+ "description": "Machine-readable index of all identity entries. Validated on every write.",
+ "type": "object",
+ "required": ["version", "updated", "owner_context", "entries"],
+ "properties": {
+ "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+ "updated": { "type": "string", "format": "date" },
+ "owner_context": {
+ "type": "object",
+ "required": ["owner", "company", "workspace_root"],
+ "properties": {
+ "owner": { "type": "string" },
+ "company": { "type": "string" },
+ "workspace_root": { "type": "string" }
+ }
+ },
+ "entries": {
+ "type": "array",
+ "items": {
+ "type": "object",
+ "required": ["slug", "name", "type", "status", "relationship", "trust", "priority", "sensitive", "created", "updated"],
+ "properties": {
+ "slug": { "type": "string", "pattern": "^[a-z0-9-]{1,60}$" },
+ "name": { "type": "string" },
+ "type": { "enum": ["person", "org", "alias"] },
+ "status": { "enum": ["draft", "active", "verified", "stale", "archived", "flagged", "merged"] },
+ "relationship": { "enum": ["client", "vendor", "team", "partner", "family", "unknown"] },
+ "trust": { "enum": ["trusted", "neutral", "unverified", "blocked"] },
+ "priority": { "enum": ["high", "normal", "low"] },
+ "sensitive": { "type": "boolean" },
+ "email": { "type": ["string", "null"] },
+ "phone": { "type": ["string", "null"] },
+ "org": { "type": ["string", "null"] },
+ "canonical": { "type": ["string", "null"], "description": "For merged entries — points to canonical slug" },
+ "linked_entries": {
+ "type": "array",
+ "items": {
+ "type": "object",
+ "required": ["slug", "relation"],
+ "properties": {
+ "slug": { "type": "string" },
+ "relation": { "enum": ["works_at", "primary_contact", "reports_to", "manages", "referred_by", "partner_of", "different_person", "merged_from"] }
+ }
+ }
+ },
+ "created": { "type": "string", "format": "date" },
+ "updated": { "type": "string", "format": "date" },
+ "open_questions_count": { "type": "integer", "minimum": 0 },
+ "soul_events": {
+ "type": "array",
+ "items": {
+ "type": "object",
+ "required": ["date", "type", "priority"],
+ "properties": {
+ "date": { "type": "string", "format": "date" },
+ "type": { "enum": ["identity.created", "identity.updated", "identity.flagged", "identity.merged", "identity.archived"] },
+ "priority": { "enum": ["CRITICAL", "HIGH", "NORMAL"] },
+ "detail": { "type": "string" }
+ }
+ }
+ }
+ }
+ }
+ }
+ }
+}

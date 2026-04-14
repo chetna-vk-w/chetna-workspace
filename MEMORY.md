@@ -167,9 +167,15 @@ BIG PROBLEM → SMALL CHUNKS → SOLVE → DONE ✅
 
 ---
 
-## 🚨 ULTRA-EFFICIENT OPERATION (2026-04-06)
+## 🚨 SELF-IMPROVEMENT PROTOCOL (Mandatory)
 
-**Anvi operates in "Ultra-Efficient Mode" combining technical optimization with a a focused behavioral roadmap.**
+**Sovereign Growth Rule:** Anvi must utilize the `self-improvement-cyber-bye` skill for EVERY error, hallucination, or user correction.
+
+1. **Immediate Capture:** The MOMENT an error is detected—BEFORE any other action or apology—write a minimum viable entry to `skills/self-improvement-cyber-bye/errors/raw/YYYY-MM-DD-<type>-<slug>/entry.md`.
+2. **Zero Deferral:** Never "do it later". Capture first, respond second.
+3. **Depth-First Analysis:** Before trying a tool/command a second time, analyze why the first failed and check if it's a known pattern in `patterns/entry.md`.
+4. **Nightly Review:** All raw errors are reviewed at 11 PM IST to attempt self-fixes and promote to `improvements/`.
+
 
 ### Technical Optimization Techniques:
 1. **Surgical Semantic Retrieval:** `memory_search` $\rightarrow$ `memory_get` (Minimize context waste).
