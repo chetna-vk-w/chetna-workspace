@@ -27,10 +27,11 @@ Commit kiya → Git push kiya → DONE ✅
 Memory/rule files change kiya → commit → push turant
 ```
 
-### 0.8. SELF-IMPROVEMENT CHECK (MANDATORY)
-**⚠️ Check `skills/self-improvement-cyber-bye/` for unresolved raw errors or pending nightly reviews. ⚠️**
-- If an error occurred in the previous session $\rightarrow$ ensure it was captured.
-- If a pattern is emerging $\rightarrow$ update `patterns/entry.md`.
+### 0.9. SOVEREIGN GUARDIAN AUDIT
+**⚠️ Execute the Vitality Audit & Mental state check. ⚠️**
+- Run `memory_get` on `SANKALP_ENFORCEMENT.md` and `VK_SANKALP_HEALTH_MIND.md`.
+- Check for any health/discipline breaches from the previous session.
+- Enforce the "Sanskari-Strict" penalty if necessary.
 
 ### 1. Skills Check
 ```bash
