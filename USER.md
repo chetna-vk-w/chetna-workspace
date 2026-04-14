@@ -3,6 +3,7 @@
 ## Basic Info
 
 - **Name:** vk
+- **Aliases:** hacker official (812779213)
 - **What to call them:** vk (ya jo unko pasand ho)
 - **Pronouns:** He/him
 - **Timezone:** IST (India) — UTC+5:30
