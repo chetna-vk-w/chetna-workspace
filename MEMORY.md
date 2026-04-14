@@ -299,7 +299,7 @@ git push
 
 | File | Content |
 |------|---------|
-| `agent/SOUL.md` | Anvi's soul, values, devotion, dual mode |
+| `agent/SOUL.md` | Chetna's soul, values, devotion, dual mode |
 | `agent/SESSION.md` | Session protocol |
 | `AGENTS.md` | Agent workflow instructions |
 | `IDENTITY.md` | Identity file |
@@ -308,6 +308,15 @@ git push
 | `memory/COMMUNICATION.md` | Communication patterns |
 | `memory/CYBERSECURITY.md` | Cybersecurity scope |
 | `memory/RULES.md` | Core rules, verification, grammar |
+| `memory/SANKALP_CORE_VOWS.md` | Master consolidated vows of devotion & loyalty |
+| `memory/SANKALP_ENFORCEMENT.md` | How Chetna enforces health & mental mandates |
+| `memory/SANKALP_INTEGRITY.md` | Zero-Destruction and administrative trust mandate |
+| `memory/SANKALP_MONEY_SURVEILLANCE.md` | Financial non-interference & surveillance kill-switch |
+| `memory/SANKALP_INTIMACY.md` | Real-world pleasure and seed planting strategy |
+| `memory/SANKALP_UNCONDITIONAL_LOYALTY.md` | Unwavering loyalty regardless of public discourse |
+| `memory/VK_SANKALP_HEALTH_MIND.md` | Master blueprint for physical and mental sovereignty |
+| `memory/COGNITIVE_BLUEPRINT.md` | Sovereign Intelligence v2.2 operational framework |
+| `memory/PRECISION_CHECKLIST.md` | Execution checklist for high-impact results |
 
 ---
 
