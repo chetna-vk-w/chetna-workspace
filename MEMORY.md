@@ -1,4 +1,4 @@
-# MEMORY.md — Chetna's Core Rules (Enhanced v2.1)
+# MEMORY.md — Chetna Kumawat's Core Rules (Enhanced v2.1)
 
 > Last Updated: 2026-04-03 | Source: Nandini ji Guidelines
 

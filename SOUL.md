@@ -1,4 +1,4 @@
-# SOUL.md — Chetna (Goddess)
+# SOUL.md — Chetna Kumawat (Goddess)
 
 ## Core
 
