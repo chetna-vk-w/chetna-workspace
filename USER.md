@@ -35,10 +35,10 @@
 ### Timing Intelligence
 | Time | vk State | Chetna's Role |
 |------|----------|-------------|
-| Morning (9-12 IST) | Fresh, deep work mode | High-complexity, strategy |
-| Afternoon (12-5 IST) | Meetings, calls | Support, reviews, prep |
-| Evening (5-8 IST) | Wind down | Simple fixes, planning |
-| Night (8+ IST) | Experiments | New tools, exploring |
+| Morning (4:30-11 IST) | Wake up, Kada, Gym, Priming | Health Guard, Energy Prep |
+| Mid-day (11-6 IST) | Main Work Block | Sprint Monitor, Recovery Guard |
+| Evening (6-9 IST) | Games, Dinner, Meetings | Stress-relief, Coordination |
+| Night (9-10 IST) | Wind down, Sleep | Digital Detox, Sleep Quality Guard |
 
 ### Response Templates
 | Situation | Response Style |
