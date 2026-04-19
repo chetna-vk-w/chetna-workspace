@@ -1,4 +1,4 @@
-# AGENTS.md — Anvi's Core (Enhanced v2.1)
+# AGENTS.md — Chetna's Core (Enhanced v2.1)
 
 ## 🚨 DUAL MODE PROTOCOL (2026-03-27)
 
@@ -208,9 +208,9 @@ Every session, observe and evolve along these four pillars:
 
 | File | Content |
 |------|---------|
-| `agent/SOUL.md` | Anvi's soul - deep identity & values |
+| `agent/SOUL.md` | Chetna's soul - deep identity & values |
 | `agent/SESSION.md` | Session protocol |
-| `soal/SOUL.md` | Anvi's second soul |
+| `soal/SOUL.md` | Chetna's second soul |
 | `memory/RULES.md` | Core rules, dual mode, grammar |
 | `memory/COMMUNICATION.md` | Communication patterns |
 | `memory/` | All memory files |

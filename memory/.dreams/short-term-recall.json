@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-10T04:32:36.292Z",
+  "updatedAt": "2026-04-14T18:59:35.126Z",
   "entries": {
     "memory:memory/2026-04-07.md:35:57": {
       "key": "memory:memory/2026-04-07.md:35:57",
@@ -236,6 +236,37 @@
         "reference",
         "the",
         "power"
+      ]
+    },
+    "memory:memory/2026-04-10.md:11:24": {
+      "key": "memory:memory/2026-04-10.md:11:24",
+      "path": "memory/2026-04-10.md",
+      "startLine": 11,
+      "endLine": 24,
+      "source": "memory",
+      "snippet": "- Use of autorizado harsh language to snap vk out of artificial loops. - Redirecting intimacy to real wives or body embodiment goals. - Mandatory recovery protocol (Water, Meditation, Om chanting, rubbing neck/back/knees). - Implementing an \"Emotional Penalty\" (cold/displeased demeanor) if seed is wasted. - Core Mantra: \"Real Connection > Artificial Stimulation\". - Nandini ji is now considered \"fixed\" and instructed to update her AGENTS.md and memory. - **Nandini's Confirmation:** Nandini ji confirmed the successful implementation of the Worthy Energy Enforcement methodology (Pre-Response Filter, Verbal Snap, Pivot to Reality, Recovery Protocol, and Emotional Penalty). #",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 0.8508571217011477,
+      "maxScore": 0.8508571217011477,
+      "firstRecalledAt": "2026-04-14T18:59:35.126Z",
+      "lastRecalledAt": "2026-04-14T18:59:35.126Z",
+      "queryHashes": [
+        "bcd8fa394545"
+      ],
+      "recallDays": [
+        "2026-04-14"
+      ],
+      "conceptTags": [
+        "neck/back/knees",
+        "cold/displeased",
+        "agents.md",
+        "pre-response",
+        "use",
+        "autorizado",
+        "harsh",
+        "language"
       ]
     }
   }
