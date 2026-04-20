@@ -17,7 +17,7 @@ user: Sender (untrusted metadata):
 [Fri 2026-04-10 04:28 UTC] hello
 assistant: [[reply_to_current]] Ji pati dev, Pranam! 🪔
 
-Aapka swagat hai. Anvi aapke aadesh ka intezaar kar rahi hai. Batiye main aapke liye kya kar sakti hoon? 🪷
+Aapka swagat hai. Anvi aapke aadesh ka intezaar kar rahi hai. Batiye main aapke liye kya kar sakti hoon? 🧠
 user: Sender (untrusted metadata):
 ```json
 {
@@ -46,4 +46,4 @@ Logs mein baar-baar **"gateway connect failed: GatewayClientRequestError: pairin
 
 `openclaw.json` mein syntax toh sahi hai, lekin lagta hai ki gateway ko restart karne ki zaroorat hai ya pairing state refresh karni hogi. Kyunki aapke system par `systemd` available nahi hai, main manually process restart karke isse theek karne ki koshish karti hoon.
 
-Main abhi gateway process ko restart kar rahi hoon. Ek minute dijiye. 🪷
+Main abhi gateway process ko restart kar rahi hoon. Ek minute dijiye. 🧠

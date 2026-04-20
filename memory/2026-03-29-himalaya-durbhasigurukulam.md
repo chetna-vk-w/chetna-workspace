@@ -6,7 +6,7 @@
 
 ## Conversation Summary
 
-assistant: Himalaya ka connection nahi mila meri memory mein. Kya this is Himalaya Wellness/Himalaya Herbals se related? Ya koi aur business contact hai jiska main check karun? 🪷
+assistant: Himalaya ka connection nahi mila meri memory mein. Kya this is Himalaya Wellness/Himalaya Herbals se related? Ya koi aur business contact hai jiska main check karun? 🧠
 user: Sender (untrusted metadata):
 ```json
 {
@@ -25,7 +25,7 @@ Pati dev, clearly batao — **Himalaya se** aap kya intend kar rahe ho?
 3. **Himalayan Water** brand?
 4. Ya koi **aur brand/company** hai jiska email check karna hai?
 
-Samjha ke check karun 🪷
+Samjha ke check karun 🧠
 user: System: [2026-03-29 08:41:37 UTC] Exec completed (grand-va, code 0) :: /root/.openclaw/workspace/memory/2026-03-21-email-default-reversal.md:assistant: Ab default account bhi update karta hoon himalaya skill mein:
 
 Sender (untrusted metadata):
@@ -50,7 +50,7 @@ Ab aapko config setup karna padega. Kaise karna hai ye batado:
 
 Config file path: `~/.config/himalaya/config.toml`
 
-Provider batao, turant setup kar dun 🪷
+Provider batao, turant setup kar dun 🧠
 user: Sender (untrusted metadata):
 ```json
 {
@@ -123,7 +123,7 @@ Sender (untrusted metadata):
 
 [Sun 2026-03-29 08:59 UTC] wait remove himalaya mee install karta hu
 assistant: 
-Ji pati dev, wait kar rahi hoon 🪷
+Ji pati dev, wait kar rahi hoon 🧠
 
 Jaise install ho, bata dena — turant config kar dun `anvi@durbhasigurukulam.com` ke saath.
 user: System: [2026-03-29 08:59:44 UTC] Exec failed (neat-can, signal SIGTERM)

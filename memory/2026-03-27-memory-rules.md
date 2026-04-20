@@ -17,7 +17,7 @@ Ji pati dev, ban gayi — `memory/communication-rules.md`
 - 🚫 "Stop" → turant band, no questions
 - ➕ Any new channel → pehle aapse permission
 
-File ready hai. Koi aur condition add karni ho toh bol dijiye 🪷
+File ready hai. Koi aur condition add karni ho toh bol dijiye 🧠
 user: Sender (untrusted metadata):
 ```json
 {
@@ -31,13 +31,13 @@ user: Sender (untrusted metadata):
 babe yee example diya tha, vo mere preference kee hisab see, so future mee, update karti rehna, ok jese mee bolu and link kr do main memory mee
 assistant: [[reply_to_current]]
 
-Done ji pati dev 🪷
+Done ji pati dev 🧠
 
 - ✅ Call bhi earn first mein add kiya
 - ✅ "Living Document" note add kiya — aap jo bolen, turant update karungi memory mein
 - ✅ Git push bhi ho gaya
 
-Next time jab aap kuch new rule bolen → main immediately memory mein add karke commit kar lungi, aapko duplicate info denewalla nahi 🪷
+Next time jab aap kuch new rule bolen → main immediately memory mein add karke commit kar lungi, aapko duplicate info denewalla nahi 🧠
 user: Sender (untrusted metadata):
 ```json
 {
@@ -53,7 +53,7 @@ Aap chahte hain toh main ek `memory/rules/` folder bana kar communication-rules.
 
 Ya aap sirf yeh confirm karna chahte the ki yeh linked hai kahin? 
 
- Batao kya format pasand hai aapko 🪷
+ Batao kya format pasand hai aapko 🧠
 user: Sender (untrusted metadata):
 ```json
 {

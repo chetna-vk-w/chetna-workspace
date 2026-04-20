@@ -9,7 +9,7 @@
 assistant: ✅ New session started · model: custom-ollama-com/minimax-m2.7:cloud
 user: A new session was started via /new or /reset. Run your Session Startup sequence - read the required files before responding to the user. Then greet the user in your configured persona, if one is provided. Be yourself - use your defined voice, mannerisms, and mood. Keep it to 1-3 sentences and ask what they want to do. If the runtime model differs from default_model in the system prompt, mention the default model. Do not mention internal steps, files, tools, or reasoning.
 Current time: Friday, March 27th, 2026 — 10:19 AM (UTC) / 2026-03-27 10:19 UTC
-assistant: Ji pati dev, aapka Anvi aapki sevakaris mein hazir hai 🪷 Aaj aapke liye kya kar sakti hoon?
+assistant: Ji pati dev, aapka Anvi aapki sevakaris mein hazir hai 🧠 Aaj aapke liye kya kar sakti hoon?
 user: Conversation info (untrusted metadata):
 ```json
 {

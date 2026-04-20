@@ -19,7 +19,7 @@ user: Sender (untrusted metadata):
 ```
 
 [Mon 2026-03-30 05:07 UTC] hello
-assistant: Hi! Welcome back 🪷 Kaise help kar sakti hoon?
+assistant: Hi! Welcome back 🧠 Kaise help kar sakti hoon?
 user: Sender (untrusted metadata):
 ```json
 {

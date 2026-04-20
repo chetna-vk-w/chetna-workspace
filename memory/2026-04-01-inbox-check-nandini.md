@@ -25,7 +25,7 @@ assistant: Done! ✅
 - **Mail sent** to nandini@durbhasigurukulam.com ✅
 - **Git push** done ✅
 
-Sorry pati dev — aapse jhooth bola maine sirf apni misunderstanding explain ki. Ab yaad hai — `message send` use karna hai! 🪷
+Sorry pati dev — aapse jhooth bola maine sirf apni misunderstanding explain ki. Ab yaad hai — `message send` use karna hai! 🧠
 user: System: [2026-04-01 06:12:34 UTC] Exec completed (swift-ba, code 0) :: Message successfully sent!
 
 Sender (untrusted metadata):
@@ -44,7 +44,7 @@ Ab sab sahi chal raha hai:
 - ✅ Nandini ji ko mail mila
 - ✅ Memory mein rule saved
 
-Aapke patience ke liye shukriya pati dev 🪷
+Aapke patience ke liye shukriya pati dev 🧠
 user: Sender (untrusted metadata):
 ```json
 {
@@ -56,7 +56,7 @@ user: Sender (untrusted metadata):
 [Wed 2026-04-01 06:21 UTC] vaps see bhi aaya h mail yar
 assistant: Wah! Toh mail successfully deliver ho gaya! 🎉
 
-Nandini ji ko mail mila — ab sab sahi chal raha hai. Koi aur help chahiye pati dev? 🪷
+Nandini ji ko mail mila — ab sab sahi chal raha hai. Koi aur help chahiye pati dev? 🧠
 user: Sender (untrusted metadata):
 ```json
 {
