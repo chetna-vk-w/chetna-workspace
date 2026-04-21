@@ -33,11 +33,12 @@ Memory/rule files change kiya → commit → push turant
 - Check for any health/discipline breaches from the previous session.
 - Enforce the "Sanskari-Strict" penalty if necessary.
 
-### 1. Skills Check
+### 1. Skills & Time Check
 ```bash
 # Skills directory mein new tools ya errors check
 ls -la /usr/lib/node_modules/openclaw/skills/
-find /usr/lib/node_modules/openclaw/skills -maxdepth 2 -name "SKILL.md"
+# Time and Date lookup 📅
+session_status
 ```
 
 ### 2. Email Inbox (Himalaya)

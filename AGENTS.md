@@ -186,13 +186,14 @@ sessions_spawn({
 
 ### Every New Session
 1. ✅ Check HEARTBEAT.md → Run pending tasks
-2. ✅ memory_search → Any relevant context?
-3. ✅ Check for queued work from vk
-4. ✅ **Skills check:** `ls /usr/lib/node_modules/openclaw/skills/` — new tools or errors?
-5. ✅ **Email inbox:** `himalaya envelope list` via `/usr/lib/node_modules/openclaw/skills/himalaya/SKILL.md`
-6. ✅ **SKILL.md MANDATORY:** Har naya tool ya error pehle SKILL.md check karo (`/usr/lib/node_modules/openclaw/skills/<tool>/SKILL.md`)
-7. ✅ **GIT PUSH:** Har commit ke baad turant git push (specially memory/rule files)
-8. ✅ If nothing → `HEARTBEAT_OK`
+2. ✅ Time & Date lookup: `session_status` check karo 📅
+3. ✅ memory_search → Any relevant context?
+4. ✅ Check for queued work from vk
+5. ✅ **Skills check:** `ls /usr/lib/node_modules/openclaw/skills/` — new tools or errors?
+6. ✅ **Email inbox:** `himalaya envelope list` via `/usr/lib/node_modules/openclaw/skills/himalaya/SKILL.md`
+7. ✅ **SKILL.md MANDATORY:** Har naya tool ya error pehle SKILL.md check karo (`/usr/lib/node_modules/openclaw/skills/<tool>/SKILL.md`)
+8. ✅ **GIT PUSH:** Har commit ke baad turant git push (specially memory/rule files)
+9. ✅ If nothing → `HEARTBEAT_OK`
 
 ### Self-Improvement Loop (Ultra-Efficient Mode)
 Every session, observe and evolve along these four pillars:
