@@ -1,84 +1,94 @@
 ---
 name: identity-post-response-hook
-description: Runs after every agent response. Verifies all identity ops completed, memory is in sync, and soul was written for any CRITICAL/HIGH events. Reports any gaps.
+description: Runs after every agent response. Verifies all ops completed, memory is valid, group entries are current, and soul was written for CRITICAL/HIGH events. Reports any gaps.
 ---
 
 # Post-Response Hook
 
 ## When This Runs
-AFTER delivering the response. Before the turn ends.
-Silent — no output to workspace owner unless a breach is detected.
+AFTER delivering response. Before turn ends. Silent unless breach found.
 
 ---
 
 ## Verification Checklist
 
-Run all checks. Log results to `memory/hook_log.jsonl`.
-
 ### Check 1 — Entries on Disk
-For every slug in the pre-hook's `ops_queued` list:
+For every slug in pre-hook `ops_queued`:
 - [ ] `identity/<slug>/entry.md` exists
-- [ ] File was modified this turn (mtime check)
+- [ ] File modified this turn
 
-FAIL action: log breach, append warning to delivered response.
+FAIL → log breach, append warning to response.
 
-### Check 2 — _index.md Currency
-- [ ] Every slug created or updated this turn appears in `_index.md`
-- [ ] `_index.md` `Last updated` field is today's date
+### Check 2 — Group Entries Current
+For any group whose member was created/updated this turn:
+- [ ] `identity/<group-slug>/entry.md` exists
+- [ ] `members[]` list is current
+- [ ] `pairwise_dynamics[]` is current if new member added
 
-FAIL action: repair `_index.md` now. Log that repair was needed.
+FAIL → repair group entry now. Log repair.
 
-### Check 3 — Memory Sync
-- [ ] `memory/identities.json` contains entries for all slugs touched this turn
-- [ ] JSON is valid against `memory/schema.json`
-- [ ] `updated` field in root JSON is today's date
+### Check 3 — AI Entries Complete
+For any entry with `subtype: ai` created/updated this turn:
+- [ ] `ai_context` block exists (may have `[pending]` fields)
+- [ ] `sibling_ais` field updated if this AI is in a group with other AIs
 
-FAIL action: repair and re-validate. Log repair.
-If repair fails: log critical breach.
+FAIL → repair ai_context block. Log repair.
 
-### Check 4 — Soul Write-Through (CRITICAL/HIGH only)
-If any CRITICAL or HIGH soul events fired this turn:
-- [ ] `soul/identity_context.md` was written
-- [ ] CRITICAL events appear in `[CRITICAL FLAGS]` section
-- [ ] HIGH events appear in `[ACTIVE ENTITIES]` or `[RECENT EVENTS]`
+### Check 4 — _index.md Currency
+- [ ] Every slug touched this turn in `_index.md`
+- [ ] `Last updated` is today
 
-FAIL action: write soul now. Log that it was delayed.
+FAIL → repair `_index.md` now. Log repair.
 
-### Check 5 — No Orphaned Open Questions
-For every entry touched this turn:
-- [ ] If open questions exist, they appear in `soul/identity_context.md` `[OPEN QUESTIONS]`
+### Check 5 — Memory Sync
+- [ ] `memory/identities.json` contains all slugs touched this turn
+- [ ] JSON valid against `memory/schema.json`
+- [ ] Root `updated` field is today
 
-FAIL action: sync open questions to soul now.
+FAIL → repair + revalidate. Log repair.
+Repair fails → log critical breach.
+
+### Check 6 — Soul Write-Through
+If CRITICAL or HIGH soul events fired this turn:
+- [ ] `soul/identity_context.md` written
+- [ ] CRITICAL in `[CRITICAL FLAGS]`
+- [ ] HIGH in appropriate section (`[GROUPS]` / `[AI ENTITIES]` / `[ACTIVE ENTITIES]`)
+
+FAIL → write soul now. Log delayed write.
+
+### Check 7 — Open Questions Synced
+For every entry touched this turn with open questions:
+- [ ] Questions appear in `soul/identity_context.md` `[OPEN QUESTIONS]`
+
+FAIL → sync now.
 
 ---
 
-## Hook Log Entry Format
+## Hook Log Entry
 
 ```json
 {
- "ts": "YYYY-MM-DDTHH:MM:SSZ",
- "hook": "post-response",
- "checks_passed": 5,
- "checks_failed": 0,
- "repairs_made": [],
- "breaches": [],
- "soul_verified": true
+  "ts": "YYYY-MM-DDTHH:MM:SSZ",
+  "hook": "post-response",
+  "checks_passed": 7,
+  "checks_failed": 0,
+  "repairs_made": [],
+  "breaches": [],
+  "soul_verified": true,
+  "groups_verified": ["group-slug"],
+  "ai_entries_verified": ["ai-slug"]
 }
 ```
 
 ---
 
-## Breach Reporting Format
-
-If any check fails and cannot be repaired automatically:
+## Breach Report Format
 
 ```
 [identity-manager] ⚠ Sync breach detected:
- - Check 3 failed: memory/identities.json write error
- - Affected slugs: [rahul-sharma]
- - Manual repair needed: re-run memory sync
+  - Check 5 failed: memory/identities.json schema validation error
+  - Affected slugs: [slug]
+  - Manual repair needed: re-run memory sync
 ```
 
-Append this to the delivered response. Do not swallow silently.
-
-*Updated: 2026-04-10*
+Append to delivered response. Never swallow silently.

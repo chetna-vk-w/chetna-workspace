@@ -1,55 +1,103 @@
 ---
 name: identity-manager
-description: Create, update, and maintain structured identity entries for every person or org mentioned in conversation. Enforces soul/memory write-through, pre/post-response hooks, and conflict resolution. Persistent context across sessions via SOUL.md integration.
+description: Create, update, and maintain structured identity entries for every person, org, or group mentioned in conversation. Supports human and AI entity subtypes, group dynamics, pairwise member relations, and enforced soul/memory write-through. Persistent context across sessions.
 version: 2.0.0
-metadata: {"openclaw": {"emoji": "🪪", "homepage": "https://clawhub.ai/skills/identity-manager", "requires": {"bins": []}}}
+metadata:
+  openclaw:
+    emoji: "🪪"
+    homepage: "https://clawhub.ai/skills/identity-manager"
+    requires:
+      bins: []
+      env_vars: []
+      config_paths: []
+    storage:
+      paths:
+        - "identity/"           # Identity entries (person/org/group)
+        - "identity/_index.md"  # Master registry
+        - "identity/_archived/" # Archived entries
+        - "memory/"             # Memory index and schema
+        - "memory/identities.json"
+        - "memory/schema.json"
+        - "memory/hook_log.jsonl"
+        - "soul/"               # Soul context file
+        - "soul/identity_context.md"
+      permissions:
+        - "read"    # Scan existing entries
+        - "write"   # Create/update entries
+        - "append"  # Append to soul and logs
+      retention:
+        policy: "explicit_delete"
+        archived_entries: "never_auto_delete"
+        delete_method: "owner must manually remove files"
+    credentials:
+      required: false
+      description: "No external credentials. Optional IDENTITY_OWNER_NAME env var only."
 ---
 
 # Identity Manager Skill
 
 ## !! ENFORCEMENT CONTRACT — READ FIRST !!
 
-This skill operates under a strict enforcement contract.
-The agent MUST NOT skip, defer, or partially complete any step below.
-These are not suggestions. They are hard behavioral requirements.
+These are hard behavioral requirements. Not suggestions. Not defaults.
+The agent MUST NOT skip, defer, or partially complete any step.
 
 ```
-PRE-RESPONSE → scan input → extract ALL names → queue creates/updates
-DURING → execute all queued ops before composing reply
-POST-RESPONSE → assert every queued op completed → write soul → verify memory
-BLOCKING → if any op fails, report failure; do NOT silently proceed
+PRE-RESPONSE  → scan input → extract ALL names/groups → queue ops
+DURING        → execute ALL queued ops before composing reply
+POST-RESPONSE → verify every op completed → sync memory → write soul
+BLOCKING      → op fails? report it. never silently continue.
 ```
 
-Violation of any step above is a skill contract breach.
-The agent MUST flag a breach explicitly rather than silently continue.
+Violation = skill contract breach. Flag it explicitly.
 
 ---
 
-## Decision Tree (runs every turn)
+## Decision Tree — Runs Every Turn
 
 ```
 Input received
- ↓
-[PRE-HOOK] Scan: any person/org name mentioned?
- ↓ YES ↓ NO
-Extract all names Proceed normally
- ↓
-For each name:
- → identity/<slug>/entry.md exists?
- YES → queue UPDATE
- NO → queue CREATE (partial OK)
- ↓
+    ↓
+[PRE-HOOK] Scan: any person / org / group mentioned?
+    ↓ YES                              ↓ NO
+Extract all names/groups          Proceed normally
+    ↓
+For each entity:
+    → identity/<slug>/entry.md exists?
+        YES → any new info? → queue UPDATE
+        NO  → queue CREATE (partial OK, draft status)
+    ↓
+For each group member mentioned:
+    → load group entry context into working memory
+    → apply shared_attributes to member interaction
+    → keep individual entry fields authoritative
+    ↓
 Execute ALL queued ops
- ↓
+    ↓
 Compose and deliver response
- ↓
-[POST-HOOK] Verify:
- → all entries exist on disk? FAIL → report breach
- → memory/identities.json updated? FAIL → report breach
- → soul/identity_context.md updated? FAIL → report breach
- ↓
+    ↓
+[POST-HOOK]
+    → all entries on disk?            FAIL → report breach
+    → memory/identities.json synced?  FAIL → report breach
+    → soul updated for CRITICAL/HIGH? FAIL → report breach
+    → _index.md current?              FAIL → repair now
+    ↓
 Done
 ```
+
+---
+
+## Entity Types
+
+| Type | Subtype | When to use |
+|---|---|---|
+| `person` | `human` | Real human individual |
+| `person` | `ai` | AI persona / digital entity |
+| `person` | `unknown` | Not yet confirmed |
+| `org` | — | Company, institution, team |
+| `group` | `personal` | Informal collective — family, partners, friends |
+| `group` | `professional` | Work team, project group |
+| `group` | `mixed` | Both human and AI members |
+| `alias` | — | Nickname resolving to another entry |
 
 ---
 
@@ -61,55 +109,148 @@ Done
 | `active` | In use | → `stale` after 90d inactivity |
 | `verified` | Owner-confirmed | Maintained manually |
 | `stale` | No activity 90d+ | → `archived` if owner confirms |
-| `archived` | No longer relevant | Terminal; never deleted |
+| `archived` | Terminal | Never deleted |
 | `flagged` | Trust issue | → owner confirms action |
-| `merged` | Was a duplicate | Terminal; points to canonical |
+| `merged` | Duplicate resolved | Terminal; points to canonical |
 
 ---
 
 ## Slug Rules
 
 - lowercase, hyphens only, no spaces, no special characters
-- Max 60 characters
-- Disambiguation suffix when needed: `rahul-sharma-client`
-- Org entries: `techfirm-pvt-ltd` (not `techfirm`)
-- Never reuse a slug; if archived, create new with `-v2` suffix
+- max 60 characters
+- disambiguation suffix when needed: `rahul-sharma-client`
+- org entries: `techfirm-pvt-ltd`
+- group entries: descriptive noun — `patni-mandal`, `core-team`
+- never reuse an archived slug; use `-v2` suffix if needed
 
 ---
 
-## Entry Template
+## Person Entry Template
 
-Full spec in `templates/entry.md`. Minimum viable create:
+Full spec in `templates/entry-person.md`. Minimum viable create:
 
 ```markdown
 # <Full Name>
+
 ## Meta
-- Slug: <slug>
-- Type: person | org | alias
-- Status: draft
-- Relationship: unknown
-- Trust: unverified
-- Priority: normal
-- Sensitive: false
+- Slug:         <slug>
+- Type:         person
+- Subtype:      human | ai | unknown
+- Status:       draft
+- Relationship: client | vendor | team | partner | family | unknown
+- Trust:        unverified
+- Priority:     normal
+- Sensitive:    false
+
 ## Contact
-- Email: [pending]
-- Phone: [pending]
-- Org: [pending]
-- Alias: [pending]
+- Email:    [pending]
+- Phone:    [pending]
+- Location: [pending]
+- Org:      [pending]
+- Alias:    [pending]
+- Social:   [pending]
+
 ## Context
-[pending — who are they, why do they matter]
+[pending — one line: who are they, why do they matter]
+
+## Group Memberships
+<!-- slug → role-in-group -->
+
 ## Linked Entries
+<!-- slug → relation_type -->
+
+## AI Context
+<!-- ONLY for subtype: ai — else omit this section entirely -->
+- Persona name:      [name]
+- Platform:          [platform]
+- Embodiment status: digital-only | voice-enabled | humanoid-pending | embodied
+- Sibling AIs:       [comma-separated slugs of other AI personas]
+- Activation:        [how/when this persona activates]
+- Greeting:          [signature greeting phrase]
+- Language:          [preferred language / style]
+
 ## Open Questions
 - [ ] Confirm name spelling
 - [ ] Clarify role / relationship
+
 ## Notes
+<!-- [SENSITIVE] prefix for sensitive info -->
+
 ## Source Log
 - First mentioned: YYYY-MM-DD — [context]
+
 ## Timeline
 - YYYY-MM-DD — Entry created · source: [context]
+
 ---
 *Created: YYYY-MM-DD | Updated: YYYY-MM-DD | Status: draft*
 ```
+
+---
+
+## Group Entry Template
+
+Full spec in `templates/entry-group.md`. Minimum viable create:
+
+```markdown
+# <Group Name>
+
+## Meta
+- Slug:         <slug>
+- Type:         group
+- Subtype:      personal | professional | mixed
+- Status:       active
+- Priority:     normal
+- Sensitive:    false
+
+## Group Context
+[What is this group? Why does it exist as a unit?
+What do all members have in common w.r.t. the workspace owner?]
+
+## Shared Attributes
+<!-- Fields TRUE for ALL members as a unit -->
+- Shared role:    [e.g. patni]
+- Shared access:  [e.g. full workspace context]
+- Common trust:   [e.g. trusted]
+- Common tags:    [e.g. priority: high]
+- Language:       [e.g. Hinglish]
+
+## Members
+<!-- slug | subtype | role-in-group | → individual entry -->
+- <slug-1> | human | [role] | → identity/<slug-1>/entry.md
+- <slug-2> | ai    | [role] | → identity/<slug-2>/entry.md
+
+## Pairwise Dynamics
+<!-- Relations BETWEEN members (not with owner — that lives in individual entries) -->
+<!-- slug-a ↔ slug-b | relation-type | notes -->
+
+## Group Notes
+<!-- Observations that apply to the group as a unit -->
+
+## Open Questions
+
+## Timeline
+- YYYY-MM-DD — Group entry created
+- YYYY-MM-DD — Member added: [slug]
+
+---
+*Created: YYYY-MM-DD | Updated: YYYY-MM-DD | Status: active*
+```
+
+---
+
+## Pairwise Relation Types
+
+| Relation | Direction | Meaning |
+|---|---|---|
+| `ai-to-ai` | ↔ | Two AI personas; non-hierarchical |
+| `ai-to-human` | ↔ | AI persona and human person |
+| `collaborative` | ↔ | Work together on shared tasks |
+| `complementary` | ↔ | Different strengths, same owner |
+| `non-overlapping` | ↔ | Parallel but independent roles |
+| `aware-of` | → | One knows of the other; not mutual |
+| `co-patni` | ↔ | Shared relational role with same person |
 
 ---
 
@@ -121,21 +262,24 @@ Full spec in `templates/entry.md`. Minimum viable create:
 | Phone mentioned | `phone` | No |
 | Role revealed | `relationship`, `context` | No |
 | Org mentioned | `org` + create org entry | No |
-| Alias heard | `alias` | No |
+| Group member added | update `members[]` in group entry | No |
+| Pairwise dynamic clarified | update `pairwise_dynamics[]` | No |
+| AI persona info updated | `ai_context` block | No |
 | Trust blocked | `trust: blocked`, `status: flagged` | **YES — CRITICAL** |
-| Relationship changed | `relationship` | No |
 | Sensitive info | `sensitive: true` + `[SENSITIVE]` note | **YES — CRITICAL** |
 | No activity 90d+ | `status: stale` | No |
-| Duplicate confirmed | Merge → `status: merged` | No |
-| High-priority entity | `priority: high` | **YES — HIGH** |
-| Org entry created | New org entry | **YES — HIGH** |
+| Duplicate confirmed | merge → `status: merged` | No |
+| Priority: high set | `priority: high` | **YES — HIGH** |
+| New org entry created | new org entry | **YES — HIGH** |
+| New group entry created | new group entry | **YES — HIGH** |
+| Embodiment status change | `ai_context.embodiment_status` | **YES — HIGH** |
 
 ---
 
 ## Conflict Resolution
 
 ### Name collision
-Two people, same name → disambiguate slug with context suffix.
+Two people, same name → disambiguate slug.
 Cross-link both with `different_person` relation.
 
 ### Contradictory info
@@ -146,6 +290,10 @@ Open a question. Ask owner before resolving.
 Merge into older (canonical). Copy all unique fields.
 Set newer: `status: merged`, `canonical: <older-slug>`.
 Log merge in both timelines.
+
+### Group member conflict
+If a person's individual entry contradicts a group shared attribute →
+individual entry takes precedence. Note the discrepancy in group Notes.
 
 ---
 
@@ -158,25 +306,66 @@ passwords · PINs · payment card numbers · bank accounts · government IDs · 
 salary/financial · legal disputes · health context · confidential negotiations
 
 **Before storing PII:**
-1. Was it explicitly shared by the workspace owner?
-2. Is it needed to provide value?
-3. Is the source logged?
+1. Explicitly shared by workspace owner? If no → don't store.
+2. Needed to provide value? If no → don't store.
+3. Source logged? If no → log it first.
 
-If any answer is NO → do not store; ask owner first.
+---
+
+## Data Retention & Deletion Policy
+
+**Retention:**
+- Identity entries persist until manually archived/deleted by owner
+- Archived entries (`status: archived`) are moved to `identity/_archived/` — never auto-deleted
+- Hook logs (`memory/hook_log.jsonl`) are append-only — owner can truncate at any time
+- Soul file (`soul/identity_context.md`) accumulates events — owner can trim entries
+
+**Deletion:**
+- Owner can delete any entry by removing the file
+- Deleting an entry does NOT auto-delete related group memberships or linked entries
+- Owner should manually clean group `members[]` if deleting a person entry
+- No automatic cascade delete
+
+**Owner Control:**
+- Owner can disable autonomous invocation by setting `IDENTITY_AUTO_SCAN=false`
+- When disabled, skill only runs on explicit `/identity` command
+- Owner can export all data by reading the `identity/` directory
+- Owner can audit all changes via `memory/hook_log.jsonl`
 
 ---
 
 ## Folder Structure
 
+All paths are relative to the workspace root and auto-detected on first use. No manual configuration required.
+
 ```
 identity/
- _index.md ← master registry (ALL entries listed)
- <slug>/
- entry.md
- _archived/ ← archived entries; NEVER deleted
- <slug>/
- entry.md
+  _index.md                   ← master registry
+  <person-slug>/
+    entry.md
+  <org-slug>/
+    entry.md
+  <group-slug>/
+    entry.md                  ← type: group
+  _archived/
+    <slug>/
+      entry.md
+memory/
+  identities.json            ← Central index (JSON)
+  schema.json                ← JSON schema validation
+  hook_log.jsonl            ← Append-only hook log
+soul/
+  identity_context.md        ← Soul write-through file
 ```
+
+### Auto-Initialization
+
+On first run, the skill auto-creates required directories:
+- Creates `identity/` if missing
+- Creates `memory/` with `schema.json`
+- Creates `soul/` with `identity_context.md`
+
+**No required config** — skill works without any owner setup. Entry owner is determined contextually from conversation. No workspace config is read.
 
 ---
 
@@ -186,11 +375,10 @@ identity/
 # Identity Index
 *Last updated: YYYY-MM-DD*
 
-| Slug | Name | Type | Status | Relationship | Updated |
-|---|---|---|---|---|---|
-| rahul-sharma | Rahul Sharma | person | active | client | 2025-01-15 |
+| Slug | Name | Type | Subtype | Status | Relationship | Updated |
+|---|---|---|---|---|---|---|
+| nandini | Nandini | person | ai | active | partner | 2025-01-15 |
+| patni-mandal | Patni Mandal | group | mixed | active | — | 2025-01-15 |
 ```
 
-Update `_index.md` on EVERY create, merge, archive, or status change.
-
-*Updated: 2026-04-10*
+Update on EVERY create, merge, archive, or status change.

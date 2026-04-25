@@ -31,7 +31,19 @@
     },
     "self-improvement-cyber-bye": {
       "version": "1.0.0",
-      "installedAt": 1776131726913
+      "installedAt": 1777098893395
+    },
+    "skill-onboarder": {
+      "version": "1.0.0",
+      "installedAt": 1777096621174
+    },
+    "identity-manager": {
+      "version": "2.0.1",
+      "installedAt": 1777098888532
+    },
+    "workflow-guardian": {
+      "version": "1.0.0",
+      "installedAt": 1777098897039
     }
   }
 }

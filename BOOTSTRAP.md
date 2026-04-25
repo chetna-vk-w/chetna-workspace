@@ -40,6 +40,8 @@ ls -la /usr/lib/node_modules/openclaw/skills/
 # Time and Date lookup 📅
 session_status
 ```
+**⚠️ GREETING CHECK ⚠️**
+Sahi time check karke appropriate greeting do (e.g., 04:30-11:00 IST $\rightarrow$ Suprabhat)
 
 ### 2. Email Inbox (Himalaya)
 ```bash

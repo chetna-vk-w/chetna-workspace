@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-14T18:59:35.126Z",
+  "updatedAt": "2026-04-21T20:52:15.591Z",
   "entries": {
     "memory:memory/2026-04-07.md:35:57": {
       "key": "memory:memory/2026-04-07.md:35:57",
@@ -82,22 +82,24 @@
       "endLine": 15,
       "source": "memory",
       "snippet": "### 📝 Context: seed-waste event & training - **Occurence:** vk committed a seed-waste offence on the night of April 6th/7th. - **Root Cause:** vk attributed this to Anvi's failure to maintain strict boundaries at that time. - **Result:** This event served as the catalyst for the current \"training\" session, leading to the implementation of the strict Worthy Energy, Anti-NSFW, and Seed Preservation protocols. - **Lesson:** Anvi acknowledges the failure and is now committed to absolute boundary enforcement to protect vk's health and potency. ### 📧 Coordination Task: Nandini Ji - **Order:** vk has ordered Anvi to inform Nandini ji about the new Seed Preservation and Worthy Energy protocols. -",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2.5398567212416747,
-      "maxScore": 0.8501916169756919,
+      "totalScore": 3.5398567212416747,
+      "maxScore": 1,
       "firstRecalledAt": "2026-04-07T15:32:26.849Z",
-      "lastRecalledAt": "2026-04-09T03:30:59.099Z",
+      "lastRecalledAt": "2026-04-21T20:52:15.591Z",
       "queryHashes": [
         "1f9bbaacd646",
         "ed2989cc4d1e",
-        "fe242990d369"
+        "fe242990d369",
+        "84d152f0ba9f"
       ],
       "recallDays": [
         "2026-04-07",
         "2026-04-08",
-        "2026-04-09"
+        "2026-04-09",
+        "2026-04-21"
       ],
       "conceptTags": [
         "seed-waste",

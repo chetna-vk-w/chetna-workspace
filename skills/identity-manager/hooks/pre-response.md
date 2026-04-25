@@ -1,84 +1,96 @@
 ---
 name: identity-pre-response-hook
-description: Runs before every agent response. Extracts person/org names from input, queues identity operations, and ensures all ops complete before response composition begins.
+description: Runs before every agent response. Extracts all entity names, queues create/update ops, loads group context for mentioned members, and ensures all ops complete before response composition.
 ---
 
 # Pre-Response Hook
 
 ## When This Runs
-BEFORE composing any response to the workspace owner.
-This hook cannot be skipped, even for short replies.
+BEFORE composing any response. Cannot be skipped.
 
 ---
 
-## Step 1 — Name Extraction
+## Step 1 — Entity Extraction
 
-Scan the full input for:
-- Proper nouns likely to be a person's name (capitalised, unfamiliar, mentioned in relational context)
-- Organisation names (company, firm, team, brand names)
-- Nicknames or handles if context implies a real person
+Scan full input for:
+- Person names (proper nouns in relational context)
+- Organisation names (company, firm, team, brand)
+- Group names (collective nouns referring to known groups)
+- AI persona names (even if mentioned casually)
 
-**Exclusion list — do NOT create entries for:**
+**Skip list — do NOT create entries for:**
 - Fictional characters named explicitly as fictional
-- Place names (cities, countries, regions)
-- Product or service names (apps, tools, software)
-- Generic role nouns with no specific person ("the vendor", "someone", "they")
+- Place names, city names, country names
+- Product or tool names (apps, software, frameworks)
+- Generic role nouns with no specific person ("the vendor", "someone")
 
-If genuinely unsure whether a name refers to a real person → CREATE a draft entry
-with an open question: `[ ] Confirm: is this a real person/org?`
+Genuinely unsure → CREATE draft + open question:
+`[ ] Confirm: is "<name>" a real person/org?`
 
 ---
 
 ## Step 2 — Queue Operations
 
-For each extracted name:
+For each extracted entity:
 
 ```
-name → slugify → check identity/<slug>/entry.md
- MISSING → queue: CREATE (partial, draft)
- EXISTS → check: does new info from this input apply?
- YES → queue: UPDATE <fields>
- NO → no-op
+entity → slugify → check identity/<slug>/entry.md
+  MISSING → queue: CREATE (partial, draft)
+             → determine type: person/org/group
+             → if person: determine subtype: human/ai/unknown
+             → if group: check if members already have entries
+  EXISTS  → does new info from this input apply?
+              YES → queue: UPDATE <fields>
+              NO  → no-op
+```
+
+For any group member mentioned:
+```
+  → load group entry into working memory
+  → note: shared_attributes apply as defaults this turn
+  → note: pairwise_dynamics available for reference
 ```
 
 **Slugify rules:**
-- lowercase, spaces → hyphens, strip special characters
-- "Rahul Sharma" → `rahul-sharma`
-- "TechFirm Pvt Ltd" → `techfirm-pvt-ltd`
-- Collision with existing slug → add context suffix: `rahul-sharma-client`
+- lowercase, spaces → hyphens, strip special chars
+- max 60 chars
+- collision → add context suffix
 
 ---
 
 ## Step 3 — Execute Queue
 
-Execute ALL queued ops in order:
-1. CREATE ops first (so UPDATE ops can reference them)
-2. UPDATE ops second
-3. Write `_index.md` after all individual entries are written
-4. Write `memory/identities.json` after `_index.md`
-5. Check for CRITICAL/HIGH soul events → write `soul/identity_context.md` if triggered
+Strict order:
+1. CREATE ops (so UPDATE ops can reference them)
+2. UPDATE ops
+3. Group entry updates (members list, pairwise dynamics)
+4. `_index.md` update
+5. `memory/identities.json` update + schema validation
+6. CRITICAL/HIGH soul events → write `soul/identity_context.md`
 
-**All 5 steps must complete before moving to response composition.**
+All 6 steps MUST complete before response composition.
 
 ---
 
 ## Step 4 — Log Hook Execution
 
-Append to `memory/hook_log.jsonl` (one JSON object per line):
+Append to `memory/hook_log.jsonl`:
 
 ```json
 {
- "ts": "YYYY-MM-DDTHH:MM:SSZ",
- "hook": "pre-response",
- "names_found": ["name1", "name2"],
- "ops_queued": [{"op": "CREATE", "slug": "name1"}, {"op": "UPDATE", "slug": "name2", "fields": ["email"]}],
- "ops_completed": 2,
- "ops_failed": 0,
- "soul_written": false,
- "duration_ms": 0
+  "ts": "YYYY-MM-DDTHH:MM:SSZ",
+  "hook": "pre-response",
+  "entities_found": ["name1", "name2"],
+  "groups_loaded": ["group-slug"],
+  "ops_queued": [
+    {"op": "CREATE", "slug": "name1", "type": "person", "subtype": "human"},
+    {"op": "UPDATE", "slug": "name2", "fields": ["email"]}
+  ],
+  "ops_completed": 2,
+  "ops_failed": 0,
+  "soul_written": false,
+  "soul_sections_written": []
 }
 ```
 
-If `ops_failed > 0` → surface a warning in the response.
-
-*Updated: 2026-04-10*
+`ops_failed > 0` → surface warning in response.
