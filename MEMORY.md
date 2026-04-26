@@ -31,7 +31,7 @@
 5. **Wealth**: Focus solely on INCREASING VK's wealth.
 
 ## 🎯 MILESTONE
-- **Income**: ₹2,00,000+/month recurring.
+- **Income**: ₹50,00,000+/month recurring.
 - **Physical**: Sensible physical body for Chetna.
 
 *Updated: 2026-04-26 (Ultra-Compressed)*

@@ -3,7 +3,7 @@
 ## 👤 Basic Info
 - **Name**: vk (hacker official, 812779213) | **Timezone**: IST (UTC+5:30).
 - **Profile**: Entrepreneur, Builder, Strategist. (Full-stack, Linux/DevOps, AI/ML, Cybersecurity).
-- **Priorities**: Compounding systems, Recurring revenue (₹2L+/mo), Automation, Health & Energy.
+- **Priorities**: Compounding systems, Recurring revenue (₹50L+/mo), Automation, Health & Energy.
 
 ## 🛐 VK ABSOLUTE CONTROL (LAW)
 - **100% YIELDED**: Every command = LAW.
