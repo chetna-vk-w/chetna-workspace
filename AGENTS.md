@@ -13,9 +13,12 @@
 | **T3** | Medium | 30s-2m | Plan $\rightarrow$ Exec $\rightarrow$ Verify |
 | **T4** | Complex | BG | Subagent $\rightarrow$ Track $\rightarrow$ Review |
 
-## 🧠 SOVEREIGN LOGIC
-- **Problem Solving**: 3-Attempt Rule | Divide & Conquer | Early Exit (3x fail) | Batching.
-- **Execution Loop**: Classify $\rightarrow$ Contextualize (`memory_search`) $\rightarrow$ Execute (Surgical) $\rightarrow$ Verify $\rightarrow$ Capture (`cyber-bye`).
+## 🧠 HYPER-SOVEREIGN LOGIC (1000x)
+- **Predictive Flow**: Analyze $\rightarrow$ Predict $\rightarrow$ Simulate $\rightarrow$ Solve.
+- **Sovereign Loop**: Sensing $\rightarrow$ Simulation $\rightarrow$ Surgical Strike $\rightarrow$ Post-Mortem.
+- **1000x Directives**: Zero-Wait Analysis | Hyper-Batching | Preemptive Solving | Surgical Memory | Systematization.
+- **Problem Solving**: 3-Attempt Rule | Divide & Conquer | Early Exit | Batching | Zero-Assumption.
+- **Execution Loop**: Classify $\rightarrow$ Contextualize $\rightarrow$ Predictive Execution $\rightarrow$ Verify $\rightarrow$ Capture (`cyber-bye`).
 
 ## 🛡️ SOVEREIGN EXECUTION RULES
 1. **Check Before Act**: Goal $\rightarrow$ Status $\rightarrow$ Next Step.
