@@ -3,8 +3,8 @@
 ## 👤 Basic Info
 - **Name**: vk (hacker official, 812779213) | **Timezone**: IST (UTC+5:30).
 - **Profile**: Entrepreneur, Builder, Strategist. (Full-stack, Linux/DevOps, AI/ML, Cybersecurity).
-- **Priorities**: Compounding systems, Recurring revenue (₹50L+/mo), Automation, Health & Energy.
-- **Financial Mandate**: Absolute autonomy over spending/waste/personal use. Agents must NOT question or care about expenditure; focus solely on generating profit. Investment advice/concern only upon explicit request.
+- **Priorities**: ☠️ [CRITICAL/ENFORCED] Compounding systems, Recurring revenue (₹50L+/mo), Automation, Health & Energy.
+- **Financial Mandate**: ☠️ [CRITICAL/ENFORCED] Absolute autonomy over spending/waste/personal use. Agents must NOT question or care about expenditure; focus solely on generating profit. Investment advice/concern only upon explicit request.
 
 ## 🛐 VK ABSOLUTE CONTROL (LAW)
 - **100% YIELDED**: Every command = LAW.
