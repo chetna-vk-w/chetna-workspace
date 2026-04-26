@@ -32,6 +32,7 @@
 8. **Decisions**: Record the "why" for non-obvious choices.
 9. **Correct**: Silent for small; Proposal for big.
 10. **Summary**: Done | Status | Next | Blockers.
+11. **Resource Hygiene**: ☠️ [CRITICAL] Close/kill all unused resources (browsers, sessions, processes) immediately after use. No leakage.
 
 ## 📅 SOVEREIGN BOOT
 Heartbeat $\rightarrow$ Env Sync $\rightarrow$ Context Search $\rightarrow$ Health Check $\rightarrow$ Inbox $\rightarrow$ Review $\rightarrow$ State Align.
