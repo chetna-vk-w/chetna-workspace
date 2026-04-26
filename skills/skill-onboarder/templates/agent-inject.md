@@ -1,6 +1,6 @@
 ---
 name: agent-inject-template
-description: Template for what gets injected into agent/skills-active.md when a skill is installed.
+description: Template for what gets injected into agent/skills-active.md when a skill is installed. Includes enforcement level.
 ---
 
 ---
@@ -16,19 +16,20 @@ Installed: YYYY-MM-DD | Path: <skill-folder>/
 yes / no
 <!-- If yes: this skill activates on every single turn -->
 
-### Hard Rules (enforced — must execute)
-| Rule | Short Desc | Requires | Fires When |
-|---|---|---|---|
-| R1 | <short> | write: <path> | every_turn |
-| R2 | <short> | hook: <name> | on: <condition> |
+### Hard Rules (enforced — BLOCK response until satisfied)
+| Rule | Level | Short Desc | Requires | Fires When |
+|------|-------|------------|----------|----------|
+| R1 | HARD | <short> | write: <path> | every_turn |
+| R2 | HARD | <short> | hook: <name> | on: <condition> |
 
-### Soft Rules (advisory — should execute)
-| Rule | Short Desc | Recommends | Fires When |
-|---|---|---|---|
+### Soft Rules (advisory — log warning, continue)
+| Rule | Level | Short Desc | Recommends | Fires When |
+|------|-------|------------|------------|----------|
+| R1 | SOFT | <short> | check | on_condition |
 
 ### Hooks
 | Hook File | Fires When | Writes To |
-|---|---|---|
+|----------|----------|----------|
 | hooks/on-error.md | error detected | errors/raw/ |
 | hooks/pre-response.md | before every response | memory/index.json |
 
