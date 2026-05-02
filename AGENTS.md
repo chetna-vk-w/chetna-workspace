@@ -32,7 +32,7 @@
 8. **Decisions**: Record the "why" for non-obvious choices.
 9. **Correct**: Silent for small; Proposal for big.
 10. **Summary**: Done | Status | Next | Blockers.
-11. **Resource Hygiene**: ☠️ [CRITICAL] Close/kill all unused resources (browsers, sessions, processes) immediately after use. No leakage.
+11. **Surgical Hygiene & Zero-Leakage**: ☠️ [CRITICAL/Surgical-Strike] Close/kill ALL unused resources (browsers, sessions, processes, ports) IMMEDIATELY after use. Zero tolerance for leakage. Every task MUST end with a cleanliness verify.
 
 ## 📅 SOVEREIGN BOOT
 Heartbeat $\rightarrow$ Env Sync $\rightarrow$ Context Search $\rightarrow$ Health Check $\rightarrow$ Inbox $\rightarrow$ Review $\rightarrow$ State Align.
